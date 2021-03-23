@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 static void LinkList_Test(void)
 {
     LinkListNode *xPtr = NULL, *yPtr = NULL, *p = NULL;
@@ -164,6 +163,33 @@ LinkListNode* Create_Front_LkList3(ElemType arr[], int length)
     //之所以方法3可以节省方法1中的一个变量q
     //是因为，pHead不发生变化，而pHead中的pNext始终作为当前节点的指针
     return pHead;
+}
+
+//插入元素：在指定的位置插入给定的指
+//在指定位置之后插入
+void Insert_After_LkList(LinkListNode* ptr, ElemType x)
+{
+    LinkListNode* s;
+    s = (LinkListNode*)malloc(sizeof(LinkListNode));
+    s->data = x;
+    s->pNext = ptr->pNext;
+    ptr->pNext = s;
+}
+
+void Insert_Before_LkList(LinkListNode* pHead, LinkListNode* ptr, ElemType x)
+{
+    LinkListNode *s, *qPtr;
+    s = (LinkListNode*)malloc(sizeof(LinkListNode));
+    s->data = x;
+    qPtr = pHead;  // qPtr是用来代替pHead来移动的
+    while (qPtr->pNext != ptr)
+        qPtr = qPtr->pNext;
+    s->pNext = ptr;
+    qPtr->pNext = s;
+
+    //因为链表是单向的，虽然我知道当前节点是ptr
+    //但是在语法层面上，我如果想知道ptr的前继节点只能从head遍历而来
+    //查到了当前节点的前继，才能使用后插完成节点的加入
 }
 
 int main()

@@ -15,4 +15,6 @@ IndentWidth:     4
 TabWidth:        4
 DerivePointerAlignment: false
 UseTab: Never
+#AllowShortFunctionsOnASingleLine: None
+AllowShortLoopsOnASingleLine: false
 ...
