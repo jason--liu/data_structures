@@ -1,0 +1,18 @@
+---
+Language:        Cpp
+BasedOnStyle: Google
+#访问说明符(public, private)声明偏移
+AccessModifierOffset:   -4
+BreakBeforeBraces: Custom
+BraceWrapping:
+   AfterControlStatement: false
+   AfterFunction: true
+# 连续的空行保留几行
+MaxEmptyLinesToKeep: 1
+Cpp11BracedListStyle: true
+Standard:        Cpp11
+IndentWidth:     4
+TabWidth:        4
+DerivePointerAlignment: false
+UseTab: Never
+...
