@@ -100,11 +100,70 @@ LinkListNode* Create_Real_LkList(ElemType arr[], int length)
         p->data = arr[i];  //将顺序表的内存存入单链表节点
 
         q->pNext = p;
-        q = p; //把q移动到当前p节点
+        q = p;  //把q移动到当前p节点
     }
 
     p->pNext = NULL;
 
+    return pHead;
+}
+
+//头插法建立单链表1
+LinkListNode* Create_Front_LkList(ElemType arr[], int length)
+{
+    LinkListNode *pHead, *p, *q;
+    int i;  //循环变量，用来遍历全部顺序表
+
+    pHead = (LinkListNode*)malloc(sizeof(LinkListNode));
+    pHead->pNext = NULL;
+    q = pHead->pNext;
+    //头插逆序遍历顺序表
+    for (i = length - 1; i >= 0; i--) {
+        p = (LinkListNode*)malloc(sizeof(LinkListNode));
+        p->data = arr[i];
+        p->pNext = q;      //使得新加入的节点串入了上一个节点
+        pHead->pNext = p;  //头节点指向了当前新加入的节点
+        q = pHead->pNext;  //让q指向当前的节点
+    }
+
+    return pHead;
+}
+
+//头插法建立单链表2
+LinkListNode* Create_Front_LkList2(ElemType arr[], int length)
+{
+    LinkListNode *pHead, *p, *q;  // p是新加入的节点,q是当前节点
+    int i;                        //循环变量，用来遍历全部顺序表
+    q = NULL;
+    for (i = length - 1; i >= 0; i--) {
+        p = (LinkListNode*)malloc(sizeof(LinkListNode));
+        p->data = arr[i];
+        p->pNext = q;
+        p = q;
+    }
+    pHead = (LinkListNode*)malloc(sizeof(LinkListNode));
+    pHead->pNext = q;
+
+    return pHead;
+}
+
+//头插法建立单链表3
+LinkListNode* Create_Front_LkList3(ElemType arr[], int length)
+{
+    LinkListNode *pHead, *p;
+    int i;
+
+    pHead = (LinkListNode*)malloc(sizeof(LinkListNode));
+    pHead->pNext = NULL;
+
+    for (i = length - 1; i >= 0; i--) {
+        p = (LinkListNode*)malloc(sizeof(LinkListNode));
+        p->data = arr[i];
+        p->pNext = pHead->pNext;
+        pHead->pNext = p;
+    }
+    //之所以方法3可以节省方法1中的一个变量q
+    //是因为，pHead不发生变化，而pHead中的pNext始终作为当前节点的指针
     return pHead;
 }
 
@@ -127,6 +186,7 @@ int main()
 
     ElemType MySeq[] = {1, 2, 3, 4, 5};
     Create_Real_LkList(MySeq, 5);
+    Create_Front_LkList(MySeq, 5);
     getchar();
     return 0;
 }
