@@ -58,7 +58,8 @@ LinkListNode* GetLinkListNode(LinkListNode* pHead, int pos)
     LinkListNode* p;
     p = pHead;
 
-    if (pos == 0) return NULL;
+    if (pos == 0)
+        return NULL;
 
     // TODO
 }
@@ -192,6 +193,32 @@ void Insert_Before_LkList(LinkListNode* pHead, LinkListNode* ptr, ElemType x)
     //查到了当前节点的前继，才能使用后插完成节点的加入
 }
 
+//删除:删除指定位置的值或者删除给定的值
+//情形1：删除指定节点的后继节点
+//情形2：删除第i个节点，假定头节点i=0
+//删除返回目标节点的地址，并不涉及到动态空间的回收
+//在动态回收空间的要求中，应该遵循原则是“谁污染谁治理”
+//在顺序表中的删除就是逻辑上的删除，就是说节点不再存在于当前顺序表中
+//删除节点：Ptr是需要删除的节点，将删除ptr的后继节点
+LinkListNode* Delete_After_Lklist(LinkListNode* ptr)
+{
+    LinkListNode* fptr;
+    //假定顺序表是A->B->C，假定要删除的是A的后续节点B，A->C
+    fptr = ptr->pNext;         // ptr是A，ptr的next是B，所以fptr是B
+    ptr->pNext = fptr->pNext;  // ptr是A，fptr是B，所以fptr->pNext是C
+    return fptr;
+}
+
+//删除第i个节点
+LinkListNode* Delete_i_LkList(LinkListNode* pHead, int i)
+{
+    LinkListNode *ptr, *qPtr = NULL;
+    ptr = GetLinkListNode(pHead, i - 1);  //找到i的前继节点
+    if (ptr != NULL && ptr->pNext != NULL)
+        qPtr = Delete_After_Lklist(ptr);
+
+    return qPtr;
+}
 int main()
 {
 #if 0

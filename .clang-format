@@ -17,4 +17,6 @@ DerivePointerAlignment: false
 UseTab: Never
 #AllowShortFunctionsOnASingleLine: None
 AllowShortLoopsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+
 ...
