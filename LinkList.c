@@ -219,6 +219,17 @@ LinkListNode* Delete_i_LkList(LinkListNode* pHead, int i)
 
     return qPtr;
 }
+
+//遍历
+void ShowLklist(LinkListNode* pHead)
+{
+    LinkListNode* p = pHead->pNext;
+    while (p != NULL) {
+        printf(" %d", p->data);
+        p = p->pNext;
+    }
+}
+
 int main()
 {
 #if 0
