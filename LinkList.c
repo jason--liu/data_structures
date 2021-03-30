@@ -246,10 +246,31 @@ int main()
     printf("y.data %d\n", x.pNext->data);
 #endif
     /* LinkList_Test(); */
+    LinkListNode* pHead = NULL;
 
     ElemType MySeq[] = {1, 2, 3, 4, 5};
-    Create_Real_LkList(MySeq, 5);
-    Create_Front_LkList(MySeq, 5);
+    /* pHead = Create_Real_LkList(MySeq, 5); */
+    pHead = Create_Front_LkList(MySeq, 5);
+    printf("显示当前链表全部元素\n");
+    ShowLklist(pHead);
+
+    //插入测试
+    LinkListNode* pPos = GetLinkListNode(pHead, 2);
+    Insert_After_LkList(pPos, 999);
+    printf("显示当前链表全部元素\n");
+    ShowLklist(pHead);
+    Insert_Before_LkList(pHead, pPos, 666);
+    printf("显示当前链表全部元素\n");
+    ShowLklist(pHead);
+
+    //删除测试
+    Delete_After_Lklist(pPos);
+    printf("显示当前链表全部元素\n");
+    ShowLklist(pHead);
+
+    //求长度
+    printf("list size : %d\n", GetSizeLinkList(pHead));
+
     getchar();
     return 0;
 }
