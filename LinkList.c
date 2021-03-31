@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <cstddef>
+
 static void LinkList_Test(void)
 {
     LinkListNode *xPtr = NULL, *yPtr = NULL, *p = NULL;
@@ -59,6 +61,15 @@ LinkListNode* GetLinkListNode(LinkListNode* pHead, int pos)
     p = pHead;
 
     if (pos == 0)
+        return NULL;
+
+    while (j < pos && p->pNext != NULL) {
+        p = p->pNext;
+        j++;
+    }
+    if (pos == j)
+        return p;
+    else
         return NULL;
 
     // TODO
