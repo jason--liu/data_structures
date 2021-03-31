@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <cstddef>
 
 static void LinkList_Test(void)
 {
@@ -240,7 +239,7 @@ void ShowLklist(LinkListNode* pHead)
         p = p->pNext;
     }
 }
-
+#if 0
 int main()
 {
 #if 0
@@ -285,3 +284,4 @@ int main()
     getchar();
     return 0;
 }
+#endif
