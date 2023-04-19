@@ -22,11 +22,24 @@ void Append(struct Array* arr, int x)
         arr->A[arr->length++] = x;
 }
 
+void Insert(struct Array* arr, int index, int x)
+{
+    int i;
+
+    if (index >= 0 && index <= arr->length) {
+        for (i = arr->length; i > index; i--)
+            arr->A[i] = arr->A[i - 1];
+        arr->A[index] = x;
+        arr->length++;
+    }
+}
+
 int main()
 {
     struct Array arr = {{2, 3, 4, 5, 6}, 10, 5};
 
-    Append(&arr, 7);
+    /* Append(&arr, 7); */
+    Insert(&arr, 4, 10);
     Display(arr);
 
     return 0;
