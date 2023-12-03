@@ -7,6 +7,12 @@ typedef struct Node {
     struct Node* rchild;
 } Node;
 
+struct Stack {
+    int size;
+    int top;
+    struct Node **S;
+};
+
 struct Queue {
     int size;
     int front;
@@ -14,6 +20,79 @@ struct Queue {
     Node** Q;
 };
 
+void Stackcreate(struct Stack* st, int size)
+{
+    st->size = size;
+    st->top = -1;
+    st->S = (struct Node**)malloc(st->size * sizeof(struct Node*));
+}
+
+void push(struct Stack* st, struct Node* x)
+{
+    if (st->top == st->size - 1)
+        printf("Stack overflow\n");
+    else {
+        st->top++;
+        st->S[st->top] = x;
+    }
+}
+
+struct Node* pop(struct Stack* st)
+{
+    struct Node* x = NULL;
+
+    if (st->top == -1)
+        printf("Stack Underflow\n");
+    else {
+        x = st->S[st->top--];
+    }
+
+    return x;
+}
+
+int isEmptyStack(struct Stack st)
+{
+    if(st.top==-1)
+        return 1;
+
+    return 0;
+}
+
+int isFullStack(struct Stack st) { return st.top == st.size - 1; }
+
+void IPreorder(struct Node* p)
+{
+    struct Stack stk;
+    Stackcreate(&stk, 100);
+
+    while (p || !isEmptyStack(stk)) {
+        if (p) {
+            printf("%d ", p->data);
+            push(&stk, p);
+            p = p->lchild;
+        } else {
+            p = pop(&stk);
+            p = p->rchild;
+        }
+    }
+}
+
+void IIreorder(struct Node* p)
+{
+    struct Stack stk;
+    Stackcreate(&stk, 100);
+
+    while (p || !isEmptyStack(stk)) {
+        if (p) {
+            push(&stk, p);
+            p = p->lchild;
+        } else {
+            p = pop(&stk);
+            printf("%d ", p->data);
+            p = p->rchild;
+        }
+    }
+}
 void create(struct Queue* q, int size)
 {
     q->size = size;
@@ -93,20 +172,79 @@ void preorder(struct Node* p)
     }
 }
 
-void ineorder(struct Node* p)
+void inorder(struct Node* p)
 {
     if (p) {
-        ineorder(p->lchild);
+        inorder(p->lchild);
         printf("%d ", p->data);
-        ineorder(p->rchild);
+        inorder(p->rchild);
     }
 }
 
+void posorder(struct Node* p)
+{
+    if (p) {
+        posorder(p->lchild);
+        posorder(p->rchild);
+        printf("%d ", p->data);
+    }
+}
+
+void LevelOrder(struct Node* root)
+{
+    struct Queue q;
+    create(&q, 100);
+
+    printf("%d ", root->data);
+    enqueue(&q, root);
+
+    while (!isEmpty(q)) {
+        root = dequeue(&q);
+        if (root->lchild) {
+            printf("%d ", root->lchild->data);
+            enqueue(&q, root->lchild);
+        }
+        if (root->rchild) {
+            printf("%d ", root->rchild->data);
+            enqueue(&q, root->rchild);
+        }
+    }
+}
+
+int countNode(struct Node* root)
+{
+    if (root)
+        return countNode(root->lchild) + countNode(root->rchild) + 1;
+    return 0;
+}
+
+int treeHigh(struct Node* root)
+{
+    int x = 0, y = 0;
+
+    if (!root)
+        return 0;
+    x = treeHigh(root->lchild);
+    y = treeHigh(root->rchild);
+
+    if (x > y)
+        return x + 1;
+    return y + 1;
+}
 int main(int argc, char* argv[])
 {
 
     Treecreate();
     preorder(root);
+    printf("\n");
+
+    IPreorder(root);
+    printf("\n");
+
+    IIreorder(root);
+    printf("\n");
+
+    LevelOrder(root);
     printf("\n");
     return 0;
 }
